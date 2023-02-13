@@ -22,6 +22,9 @@ func main() {
 	flag.Parse()
 	config.InitConfig(env)
 
+	// Initialize Logger
+	bootstrap.SetupLogger()
+
 	router := gin.New()
 
 	// Initialize DB
