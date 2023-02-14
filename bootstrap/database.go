@@ -6,10 +6,10 @@ import (
 	"goex/app/models/user"
 	"goex/pkg/config"
 	"goex/pkg/database"
+	"goex/pkg/logger"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"time"
 )
 
@@ -39,7 +39,7 @@ func SetupDB() {
 	}
 
 	// connect to the database and set the log mode of GORM
-	database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
+	database.Connect(dbConfig, logger.NewGormLogger())
 
 	// Set the maximum number of open connections
 	database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
