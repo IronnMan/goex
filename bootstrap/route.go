@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"github.com/gin-gonic/gin"
+	"goex/app/http/middlewares"
 	"goex/routes"
 	"net/http"
 	"strings"
@@ -19,7 +20,7 @@ func SetupRoute(r *gin.Engine) {
 
 func registerGlobalMiddleWare(r *gin.Engine) {
 	r.Use(
-		gin.Logger(),
+		middlewares.Logger(),
 		gin.Recovery(),
 	)
 }

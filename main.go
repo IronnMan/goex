@@ -25,6 +25,9 @@ func main() {
 	// Initialize Logger
 	bootstrap.SetupLogger()
 
+	// Set the running mode of gin, support debug, release, test
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.New()
 
 	// Initialize DB
