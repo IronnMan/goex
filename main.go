@@ -33,6 +33,9 @@ func main() {
 	// Initialize DB
 	bootstrap.SetupDB()
 
+	// Initialize Redis
+	bootstrap.SetupRedis()
+
 	// Initialize route binding
 	bootstrap.SetupRoute(router)
 
