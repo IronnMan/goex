@@ -99,6 +99,11 @@ func GetInt(path string, defaultValue ...interface{}) int {
 	return cast.ToInt(internalGet(path, defaultValue...))
 }
 
+// GetInt64 Get int type config information
+func GetInt64(path string, defaultValue ...interface{}) int64 {
+	return cast.ToInt64(internalGet(path, defaultValue...))
+}
+
 // GetFloat64 Get float64 type config information
 func GetFloat64(path string, defaultValue ...interface{}) float64 {
 	return cast.ToFloat64(internalGet(path, defaultValue...))
