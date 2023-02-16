@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"goex/app/http/controllers/api/auth"
+	"goex/app/http/controllers/api/v1/auth"
 )
 
 func RegisterAPIRoutes(r *gin.Engine) {
@@ -14,6 +14,10 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			suc := new(auth.SignupController)
 
 			authGroup.POST("/signup/email/exist", suc.IsEmailExist)
+
+			vcc := new(auth.VerifyCodeController)
+
+			authGroup.POST("/verify-codes/captcha", vcc.ShowCaptcha)
 		}
 	}
 }
