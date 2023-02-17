@@ -5,7 +5,7 @@ import (
 	v1 "goex/app/http/controllers/api/v1"
 	"goex/pkg/captcha"
 	"goex/pkg/logger"
-	"net/http"
+	"goex/pkg/response"
 )
 
 type VerifyCodeController struct {
@@ -19,7 +19,7 @@ func (vc *VerifyCodeController) ShowCaptcha(c *gin.Context) {
 
 	logger.LogIf(err)
 
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"captcha_id":    id,
 		"captcha_image": b64s,
 	})

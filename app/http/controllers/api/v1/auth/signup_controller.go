@@ -5,7 +5,7 @@ import (
 	v1 "goex/app/http/controllers/api/v1"
 	"goex/app/models/user"
 	"goex/app/requests"
-	"net/http"
+	"goex/pkg/response"
 )
 
 // SignupController register controller
@@ -19,7 +19,7 @@ func (sc *SignupController) IsEmailExist(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"exist": user.IsEmailExist(request.Email),
 	})
 }

@@ -1,10 +1,9 @@
 package requests
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/thedevsaddam/govalidator"
-	"net/http"
+	"goex/pkg/response"
 )
 
 // ValidatorFunc validation function type
@@ -18,21 +17,14 @@ type ValidatorFunc func(interface{}, *gin.Context) map[string][]string
 func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
 	// parse requests, support JSON data, form requests and URL query
 	if err := c.ShouldBind(obj); err != nil {
-		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"message": "Request parsing error, please confirm whether the request format is correct. Please use the multipart header when uploading files, and use JSON format for parameters.",
-			"error":   err.Error(),
-		})
-		fmt.Println(err.Error())
+		response.BadRequest(c, err, "Request parsing error, please confirm whether the request format is correct. Please use the multipart header when uploading files, and use JSON format for parameters.")
 		return false
 	}
 
 	errs := handler(obj, c)
 
 	if len(errs) > 0 {
-		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"message": "Request verification failed, please see errors for details.",
-			"errors":  errs,
-		})
+		response.ValidationError(c, errs)
 		return false
 	}
 
