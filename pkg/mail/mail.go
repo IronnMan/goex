@@ -15,7 +15,7 @@ type Email struct {
 	To      []string
 	Bcc     []string
 	Cc      []string
-	Subject []string
+	Subject string
 	Text    []byte // Plaintext message (optional)
 	HTML    []byte // Html message (optional)
 }
