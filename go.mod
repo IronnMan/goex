@@ -11,6 +11,7 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/thedevsaddam/govalidator v1.9.10
 	go.uber.org/zap v1.24.0
+	golang.org/x/crypto v0.6.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/mysql v1.4.6
 	gorm.io/driver/sqlite v1.4.4
@@ -47,7 +48,6 @@ require (
 	github.com/ugorji/go/codec v1.2.9 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
 	golang.org/x/net v0.6.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
