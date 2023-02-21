@@ -5,6 +5,7 @@ import (
 	v1 "goex/app/http/controllers/api/v1"
 	"goex/app/models/user"
 	"goex/app/requests"
+	"goex/pkg/jwt"
 	"goex/pkg/response"
 )
 
@@ -38,8 +39,13 @@ func (sc *SignupController) SignupUsingEmail(c *gin.Context) {
 	userModel.Create()
 
 	if userModel.ID > 0 {
+		token := jwt.NewJWT().IssueToken(jwt.UserInfo{
+			UserID:   userModel.GetStringID(),
+			UserName: userModel.Name,
+		})
 		response.CreatedJSON(c, gin.H{
-			"data": userModel,
+			"token": token,
+			"data":  userModel,
 		})
 	} else {
 		response.Abort500(c, "Failed to create user, please try later")
