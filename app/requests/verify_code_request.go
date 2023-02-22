@@ -20,21 +20,7 @@ func VerifyCodeEmail(data interface{}, c *gin.Context) map[string][]string {
 		"captcha_answer": []string{"required", "digits:6"},
 	}
 
-	messages := govalidator.MapData{
-		"email": []string{
-			"required:Email is required",
-			"min:Email length must be greater than 4",
-			"max:Email length must be less than 30",
-			"email:Email format is incorrect, please provide a valid email address",
-		},
-		"captcha_id": []string{
-			"required:The ID of the image captcha is required",
-		},
-		"captcha_answer": []string{
-			"required:Image verification code answer is required",
-			"digits:Image captcha must be 6 digits long",
-		},
-	}
+	messages := govalidator.MapData{}
 
 	errs := validate(data, rules, messages)
 

@@ -26,14 +26,7 @@ func SignupEmailExist(data interface{}, c *gin.Context) map[string][]string {
 	}
 
 	// prompt when custom validation error occurs
-	messages := govalidator.MapData{
-		"email": []string{
-			"required:Email is required",
-			"min:Email length must be greater than 4",
-			"max:Email length must be less than 30",
-			"email:Email format is incorrect, please provide a valid email address",
-		},
-	}
+	messages := govalidator.MapData{}
 
 	return validate(data, rules, messages)
 }
@@ -48,32 +41,7 @@ func SignupUsingEmail(data interface{}, c *gin.Context) map[string][]string {
 		"verify_code":      []string{"required", "digits:6"},
 	}
 
-	messages := govalidator.MapData{
-		"email": []string{
-			"required:Email is required",
-			"min:Email length must be greater than 4",
-			"max:Email length must be less than 30",
-			"email:Email format is incorrect, please provide a valid email address",
-			"not_exists:Email has been taken",
-		},
-		"name": []string{
-			"required:Name is required",
-			"alpha_num:The name format is wrong, only numbers and English are allowed",
-			"between:Name length must be between 3~20",
-			//"not_exists:Name has been taken",
-		},
-		"password": []string{
-			"required:Password is required",
-			"min:Password length must be greater than 6",
-		},
-		"password_confirm": []string{
-			"required:Password confirm is required",
-		},
-		"verify_code": []string{
-			"required:Verify code is required",
-			"digits:Verify code length must be 6 digits",
-		},
-	}
+	messages := govalidator.MapData{}
 
 	errs := validate(data, rules, messages)
 
