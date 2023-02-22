@@ -8,3 +8,9 @@ func IsEmailExist(email string) bool {
 	database.DB.Model(User{}).Where("email = ?", email).Count(&count)
 	return count > 0
 }
+
+// GetByMulti get user by email/name
+func GetByMulti(loginID string) (userModel User) {
+	database.DB.Where("email = ?", loginID).Or("name = ?", loginID).First(&userModel)
+	return
+}
