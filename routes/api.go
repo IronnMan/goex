@@ -12,19 +12,19 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		authGroup := v1.Group("/auth")
 		{
 			suc := new(auth.SignupController)
-
 			authGroup.POST("/signup/email/exist", suc.IsEmailExist)
 			authGroup.POST("/signup/using-email", suc.SignupUsingEmail)
 
 			vcc := new(auth.VerifyCodeController)
-
 			authGroup.POST("/verify-codes/captcha", vcc.ShowCaptcha)
 			authGroup.POST("/verify-codes/email", vcc.SendUsingEmail)
 
 			lgc := new(auth.LoginController)
-
 			authGroup.POST("/login/using-password", lgc.LoginByPassword)
 			authGroup.POST("/login/refresh-token", lgc.RefreshToken)
+
+			pwc := new(auth.PasswordController)
+			authGroup.POST("/password-reset/using-email", pwc.ResetByEmail)
 		}
 	}
 }
