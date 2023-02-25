@@ -3,10 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"github.com/spf13/cobra"
+	"goex/app/cmd"
 	"goex/bootstrap"
 	btsConfig "goex/config"
 	"goex/pkg/config"
+	"goex/pkg/console"
+	"os"
 )
 
 func init() {
@@ -20,27 +23,36 @@ func main() {
 	var env string
 	flag.StringVar(&env, "env", "", "Load the .env file, such as --env=testing loads the .env.testing file")
 	flag.Parse()
-	config.InitConfig(env)
 
-	// Initialize Logger
-	bootstrap.SetupLogger()
+	var rootCmd = &cobra.Command{
+		Use:   config.GetString("app.name"),
+		Short: "A social news website and forum project",
+		Long:  `Default will run "serve" command, you can use "-h" flag to see all subcommands`,
 
-	// Set the running mode of gin, support debug, release, test
-	gin.SetMode(gin.ReleaseMode)
+		PersistentPreRun: func(command *cobra.Command, args []string) {
 
-	router := gin.New()
+			config.InitConfig(cmd.Env)
 
-	// Initialize DB
-	bootstrap.SetupDB()
+			// Initialize Logger
+			bootstrap.SetupLogger()
 
-	// Initialize Redis
-	bootstrap.SetupRedis()
+			// Initialize DB
+			bootstrap.SetupDB()
 
-	// Initialize route binding
-	bootstrap.SetupRoute(router)
+			// Initialize Redis
+			bootstrap.SetupRedis()
+		},
+	}
 
-	err := router.Run(":" + config.Get("app.port"))
-	if err != nil {
-		fmt.Printf(err.Error())
+	rootCmd.AddCommand(
+		cmd.CmdServe,
+	)
+
+	cmd.RegisterDefaultCmd(rootCmd, cmd.CmdServe)
+
+	cmd.RegisterGlobalFlags(rootCmd)
+
+	if err := rootCmd.Execute(); err != nil {
+		console.Exit(fmt.Sprintf("Failed to run app with %v: %s", os.Args, err.Error()))
 	}
 }
