@@ -1,0 +1,23 @@
+package make
+
+import (
+	"errors"
+	"github.com/spf13/cobra"
+	"goex/pkg/console"
+)
+
+var Cmd{{Struct}} = &cobra.Command{
+	Use:   "{{PackageName}}",
+	Short: "HERE PUTS THE COMMAND DESCRIPTION",
+	Run:   run{{StructName}},
+	Args:  cobra.ExactArgs(1),
+}
+
+func run{{StructName}}(cmd *cobra.Command, args []string) {
+
+	console.Success("This is Success")
+	console.Warning("This is Warning")
+	console.Error("This is Error")
+	console.Exit("exit method")
+	console.ExitIf(errors.New("print and exit when err != nil"))
+}
