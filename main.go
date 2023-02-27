@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"goex/app/cmd"
+	makecmd "goex/app/cmd/make"
 	"goex/bootstrap"
 	btsConfig "goex/config"
 	"goex/pkg/config"
@@ -47,6 +48,7 @@ func main() {
 	rootCmd.AddCommand(
 		cmd.CmdServe,
 		cmd.CmdKey,
+		makecmd.CmdMake,
 	)
 
 	cmd.RegisterDefaultCmd(rootCmd, cmd.CmdServe)
