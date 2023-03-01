@@ -1,0 +1,29 @@
+package migrations
+
+import (
+	"database/sql"
+	"goex/app/models"
+	"goex/pkg/migrate"
+	"gorm.io/gorm"
+)
+
+func init() {
+
+	type {{StructName}} struct {
+		models.BaseModel
+
+		Name string `gorm:"type:varchar(255);not null;index"`
+
+		models.CommonTimestampsField
+	}
+
+	up := func(m gorm.Migrator, DB *sql.DB) {
+		m.AutoMigrate(&{{StructName}}{})
+	}
+
+	down := func(m gorm.Migrator, DB *sql.DB) {
+		m.DropTable(&{{StructName}}{})
+	}
+
+	migrate.Add("{{FileName}}", up, down)
+}
