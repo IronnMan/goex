@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.8.2
+	github.com/go-faker/faker/v4 v4.0.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/iancoleman/strcase v0.2.0
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
