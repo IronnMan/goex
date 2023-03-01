@@ -155,3 +155,16 @@ func (m *Migrator) Refresh() {
 	m.Reset()
 	m.Up()
 }
+
+func (m *Migrator) Fresh() {
+	dbname := database.CurrentDatabase()
+
+	err := database.DeleteAllTables()
+	console.ExitIf(err)
+	console.Success("clearup database " + dbname)
+
+	m.createMigrationsTable()
+	console.Success("[migrations] table created.")
+
+	m.Up()
+}
