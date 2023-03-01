@@ -6,6 +6,15 @@ import (
 	"goex/pkg/migrate"
 )
 
+func init() {
+	CmdMigrate.AddCommand(
+		CmdMigrateUp,
+		CmdMigrateRollback,
+		CmdMigrateRefresh,
+		CmdMigrateReset,
+	)
+}
+
 var CmdMigrate = &cobra.Command{
 	Use:   "migrate",
 	Short: "Run database migration",
@@ -24,11 +33,24 @@ var CmdMigrateRollback = &cobra.Command{
 	Run:     runDown,
 }
 
-func init() {
-	CmdMigrate.AddCommand(
-		CmdMigrateUp,
-		CmdMigrateRollback,
-	)
+var CmdMigrateReset = &cobra.Command{
+	Use:   "reset",
+	Short: "Rollback all database migrations",
+	Run:   runReset,
+}
+
+var CmdMigrateRefresh = &cobra.Command{
+	Use:   "refresh",
+	Short: "Reset and re-run all migrations",
+	Run:   runRefresh,
+}
+
+func runRefresh(cmd *cobra.Command, args []string) {
+	migrator().Refresh()
+}
+
+func runReset(cmd *cobra.Command, args []string) {
+	migrator().Reset()
 }
 
 func runDown(cmd *cobra.Command, args []string) {
