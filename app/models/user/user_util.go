@@ -26,6 +26,6 @@ func GetByEmail(email string) (userModel User) {
 }
 
 func All() (users []User) {
-	database.DB.First(&users)
+	database.DB.Find(&users)
 	return
 }
